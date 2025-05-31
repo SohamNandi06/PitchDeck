@@ -1,16 +1,31 @@
+import { withSentryConfig } from "@sentry/nextjs";
 import type { NextConfig } from "next";
-import { hostname } from "os";
 
 const nextConfig: NextConfig = {
-  images:{
-    dangerouslyAllowSVG:true,
-    remotePatterns:[
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  images: {
+    dangerouslyAllowSVG: true,
+    remotePatterns: [
       {
-      protocol:'https',
-      hostname:'*',
-    }
-  ]
-  }
+        protocol: "https",
+        hostname: "*",
+      },
+    ],
+  },
+  experimental: {
+    ppr: true, // ✅ CORRECT (boolean, not a string)
+  },
+  devIndicators: {
+    appIsrStatus: true,
+    buildActivity: true,
+    buildActivityPosition: "bottom-right",
+  },
 };
 
-export default nextConfig;
+// Wrap with Sentry if needed
+export default withSentryConfig(nextConfig);

@@ -58,6 +58,7 @@ export const STARTUP_VIEWS_QUERY = defineQuery(`
     username,
     email,
     image,
-    bio
+    bio, 
+
     }
   `)

@@ -3,7 +3,7 @@ import Ping from './Ping';
 import { client } from '@/sanity/lib/client';
 import { STARTUP_VIEWS_QUERY } from '@/sanity/lib/query';
 import { incrementViews } from '@/lib/actions';
-
+  
 const View = async ({ id }: { id: string }) => {
   const result = await client.withConfig({ useCdn: false }).fetch(STARTUP_VIEWS_QUERY, { id });
   const totalViews = result?.views ?? 0;

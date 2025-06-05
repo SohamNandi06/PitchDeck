@@ -14,8 +14,8 @@ type PageProps = {
   params: { id: string };
 };
 
-const StartupPage = async ({ params }: PageProps) => {
-  const { id } = params;
+const StartupPage = async ({ params }: { params: { id: string } }) => {
+  const { id } = params; 
 
   const post = await client.fetch(STARTUP_BY_ID_QUERY, { id });
 

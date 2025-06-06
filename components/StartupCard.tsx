@@ -1,10 +1,11 @@
-import { formatDate } from '@/lib/utils';
+import { cn, formatDate } from '@/lib/utils';
 import { EyeIcon } from 'lucide-react';
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from './ui/button';
 import { Author, Startup } from '@/sanity.types';
+import { Skeleton } from './ui/skeleton';
 
 export type StartupTypeCard = Omit<Startup, "author"> & {author?:Author};
 
@@ -28,7 +29,7 @@ const StartupCard = ({ post }: { post: StartupTypeCard }) => {
   return (
     <li className="startup-card group relative p-4 bg-white shadow-md rounded-md">
       {/* Eye icon and views in top-right */}
-      <div className="absolute top-4 right-4 flex items-center gap-1">
+      <div className="absolute top-4 right-4 flex items-center gap-1 overflow-hidden">
         <EyeIcon className="size-5 text-primary" />
         <span className="text-sm font-medium">{views}</span>
       </div>
@@ -49,8 +50,8 @@ const StartupCard = ({ post }: { post: StartupTypeCard }) => {
 
         <Link href={`/user/${authorID}`}>
           <Image
-            src="https://placehold.co/48x48"
-            alt="placeholder"
+            src={author?.image}
+            alt={author?.name}
             width={48}
             height={48}
             className="rounded-full"
@@ -59,7 +60,7 @@ const StartupCard = ({ post }: { post: StartupTypeCard }) => {
       </div>
 
       <Link href={`/startups/${_id}`}>
-        <p className="startup-card-desc">{description}</p>
+        <p className="startup-card-desc overflow-hidden">{description}</p>
         <img src={image} alt="placeholder" className="startup-card_img" />
       </Link>
 
@@ -74,5 +75,17 @@ const StartupCard = ({ post }: { post: StartupTypeCard }) => {
     </li>
   );
 };
+
+export const StartupCardSkeleton = () => (
+    <>
+        {[0, 1, 2, 3, 4].map((index: number) => (
+  <li key={index}>
+    <Skeleton className='startup-card-skeleton' />
+  </li>
+))}
+
+    </>
+)
+
 
 export default StartupCard;

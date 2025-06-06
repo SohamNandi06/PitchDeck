@@ -3,6 +3,8 @@ import SearchForm from "../../components/SearchForm";
 import { client } from "@/sanity/lib/client";
 import { STARTUPS_QUERY } from "@/sanity/lib/query";
 import { auth } from "@/auth";
+import CursorTracer from "@/components/CursorTracer";
+import { SmoothCursor } from "@/components/SmoothCursor";
 
 export default async function Home({
   searchParams,
@@ -21,6 +23,7 @@ export default async function Home({
 
   return (
     <>
+    <SmoothCursor/>
       <section className="pink_container">
         <h1 className="heading">
           Pitch Your Startup

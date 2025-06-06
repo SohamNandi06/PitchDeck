@@ -8,6 +8,7 @@ import Image from 'next/image';
 import markdownit from 'markdown-it'
 import { Skeleton } from '@/components/ui/skeleton';
 import View from '@/components/View';
+import { SmoothCursor } from '@/components/SmoothCursor';
 const md=markdownit();
 
 type PageProps = {
@@ -15,7 +16,7 @@ type PageProps = {
 };
 
 const StartupPage = async ({ params }: { params: { id: string } }) => {
-  const { id } = params; 
+  const { id } = params;
 
   const post = await client.fetch(STARTUP_BY_ID_QUERY, { id });
 
@@ -25,6 +26,7 @@ const StartupPage = async ({ params }: { params: { id: string } }) => {
 
   return (
     <>
+    <SmoothCursor/>
       <section className="pink_container !min-h-[230px]">
         <p className="tag">{formatDate(post?._createdAt)}</p>
         <h1 className="heading">{post.title}</h1>

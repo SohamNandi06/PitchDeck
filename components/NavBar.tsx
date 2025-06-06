@@ -2,6 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { auth, signIn, signOut } from '@/auth';
+import { BadgePlus, LogOut } from 'lucide-react';
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 
 
 const NavBar = async () => {
@@ -18,18 +20,29 @@ const NavBar = async () => {
         {session && session?.user ? (
   <>
     <Link href="/startup/create" >
-      <span>Create</span>
+      <span className='max-sm:hidden'>Create</span>
+      <BadgePlus className='size-6 sm:hidden'/>
+      
     </Link>
 
     <form action={ async() => {
       "use server"
       await signOut({redirectTo:"/"});
       }}>
-      <button type='submit'>Logout</button>
+      <button type='submit'>
+         <span className='max-sm:hidden'>Logout</span>
+        <LogOut className="size-6 sm:hidden text-red-500"/>
+      </button>
     </form>
 
     <Link href={`/user/${session?.id}`}>
-      <span>{session?.user?.name}</span>
+      <Avatar className='size-10'>
+        <AvatarImage
+          src={session?.user?.image || ''}
+          alt={session?.user?.name || 'User Avatar'}
+          />
+          <AvatarFallback >AV</AvatarFallback>
+        </Avatar>
     </Link>
   </>
 ) : (
